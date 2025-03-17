@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+
+package "Product and Service Specifications" {
+    class ProductSpecification {
+        + productSpecID : String
+        + name : String
+        + description : String
+        + isBundle : Boolean
+    }
+
+    class ResourceSpecification {
+        + resourceSpecID : String
+        + name : String
+        + description : String
+    }
+
+    class ServiceSpecification {
+        + serviceSpecID : String
+        + name : String
+        + description : String
+    }
+}
+
+package "Product and Service Offerings" {
+    class ProductOffering {
+        + productOfferingID : String
+        + name : String
+        + description : String
+        + price : Decimal
+    }
+
+    class ServiceResource {
+        + serviceResourceID : String
+        + name : String
+        + description : String
+    }
+}
+
+package "Product" {
+    class Product {
+        + productID : String
+        + name : String
+        + description : String
+        + status : String
+    }
+}
+
+ProductSpecification "1" -- "0..*" ProductOffering : defines
+ResourceSpecification "1" -- "0..*" ProductSpecification : used by
+ServiceSpecification "1" -- "0..*" ProductOffering : defines
+ServiceSpecification "1" -- "0..*" ServiceResource : used by
+ProductOffering "1" -- "0..*" Product : offered as
+@enduml
